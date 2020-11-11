@@ -1,0 +1,126 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "first_name": "Sawan",
+      "last_name": "Nepal",
+      "email": "sawee42@gmail.com",
+      "phone": "+97517491632",
+      "password": "iamGod",
+      "confirm_password": "iamGod",
+      "status": "At Work",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "first_name": "Error",
+      "last_name": "Magnet",
+      "email": "errormagnet@gmail.com",
+      "phone": "+97517489859",
+      "password": "em69420",
+      "confirm_password": "em69420",
+      "status": "On Leave",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "first_name": "No",
+      "last_name": "One",
+      "email": "noone@gmail.com",
+      "phone": "+97577487759",
+      "password": "iamnoone",
+      "confirm_password": "iamnoone",
+      "status": "Inactive",
+      "role": "user"
+    }
+  ],
+  "Leaves": [
+    {
+      "id": 1,
+      "leave": [
+        {
+          "type": "casual",
+          "number_of_days": 30,
+          "leave_left": 30,
+          "leave_taken": 0
+        },
+        {
+          "type": "sick",
+          "number_of_days": 60,
+          "leave_left": 60,
+          "leave_taken": 0
+        },
+        {
+          "type": "maternity",
+          "number_of_days": 180,
+          "leave_left": 180,
+          "leave_taken": 0
+        },
+        {
+          "type": "toil",
+          "number_of_days": 50,
+          "leave_left": 50,
+          "leave_taken": 0
+        }
+    ]
+    },
+    {
+      "id": 2,
+      "leave": [
+        {
+          "type": "casual",
+          "number_of_days": 30,
+          "leave_left": 30,
+          "leave_taken": 0
+        },
+        {
+          "type": "sick",
+          "number_of_days": 60,
+          "leave_left": 60,
+          "leave_taken": 0
+        },
+        {
+          "type": "maternity",
+          "number_of_days": 180,
+          "leave_left": 180,
+          "leave_taken": 0
+        },
+        {
+          "type": "toil",
+          "number_of_days": 50,
+          "leave_left": 50,
+          "leave_taken": 0
+        }
+    ]
+    },
+    {
+      "id": 3,
+      "leave": [
+        {
+          "type": "casual",
+          "number_of_days": 30,
+          "leave_left": 15,
+          "leave_taken": 15
+        },
+        {
+          "type": "sick",
+          "number_of_days": 60,
+          "leave_left": 45,
+          "leave_taken": 15
+        },
+        {
+          "type": "maternity",
+          "number_of_days": 180,
+          "leave_left": 0,
+          "leave_taken": 180
+        },
+        {
+          "type": "toil",
+          "number_of_days": 50,
+          "leave_left": 20,
+          "leave_taken": 30
+        }
+    ]
+    }
+  ]
+}
