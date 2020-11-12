@@ -9,21 +9,21 @@
                 <!-- User List for Users -->
                 <li
                     routerLinkActive="active"
-                    *ngIf="!authService.isLoggedIn()"><a routerLink="">Log In</a></li>
+                    ><a routerLink="">Log In</a></li>
                 <!-- Leave Application for Users -->
                 <li
                     routerLinkActive="active"
-                    *ngIf="authService.isLoggedIn()"><a routerLink="">Leave Application</a></li>
+                    ><a routerLink="">Leave Application</a></li>
                 <!-- Leave Management for Admin -->
                 <li
-                    routerLinkActive="active"
-                    *ngIf="authService.admin()" routerLink=""><a>Manage Leave</a>
+                    routerLinkActive="active">
+                    <a routerLink="">>Manage Leave</a>
                 </li>
             </ul>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown" *ngIf="role!=''" appDropdown >
+            <li class="dropdown"  appDropdown>
                 <a
                     style="cursor: pointer;"
                     class="dropdown-toggle"
@@ -34,16 +34,14 @@
                 <ul class="dropdown-menu">
                     <li><a
                             style="cursor: pointer;"
-                            (click)="onMyPage()"
-                            *ngIf="authService.isLoggedIn()">
+                            (click)="onMyPage()">
                             My Page
                         </a>
                     </li>
                     <!-- User Add for Admin -->
                     <li><a
                             style="cursor: pointer;"
-                            (click)="onAddUser()"
-                            *ngIf="authService.admin()">
+                            (click)="onAddUser()">
                             Add User
                         </a>
                     </li>

@@ -16,7 +16,7 @@
           class="form-control">
           <small
             *ngIf="!signupForm.get('fName').valid && signupForm.get('fName').touched"
-            class="help-block">
+            class="text-danger">
             Please enter a valid name
           </small>
       </div>
@@ -29,7 +29,7 @@
             class="form-control">
             <small
               *ngIf="!signupForm.get('lName').valid && signupForm.get('lName').touched"
-              class="help-block">
+              class="text-danger">
               Please enter a valid Name
             </small>
         </div>
@@ -42,7 +42,7 @@
           class="form-control">
           <small
             *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched"
-            class="help-block">
+            class="text-danger">
             Please enter a valid email
           </small>
       </div>
@@ -55,7 +55,7 @@
             class="form-control">
             <small
               *ngIf="!signupForm.get('phoneNumber').valid && signupForm.get('phoneNumber').touched"
-              class="help-block">
+              class="text-danger">
               Please enter a valid Number
             </small>
         </div>
@@ -69,12 +69,12 @@
             <div *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">
               <small
               *ngIf="signupForm.get('password').errors?.required"
-              class="help-block">
+              class="text-danger">
               Please enter a password
             </small>
             <small
               *ngIf="!signupForm.get('password').errors?.minLength"
-              class="help-block">
+              class="text-danger">
               Password should be atleast 6 characters long
             </small>
             </div>
@@ -88,7 +88,7 @@
             class="form-control">
             <small
               *ngIf="!signupForm.get('confirmPassword').valid || signupForm.errors?.misMatch"
-              class="help-block">
+              class="text-danger">
               Passwords don't match
             </small>
         </div>

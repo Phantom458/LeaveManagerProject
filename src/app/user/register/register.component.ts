@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { passwordValidator } from '../../shared/validators/password.validator';
-import { User } from '../../shared/models/register.model';
-import { RegisterService } from './register.service';
+import { RegisterService } from '../../shared/services/register.service';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-register',
@@ -15,11 +15,14 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   errorMessage = '';
 
+  private loginUrl = 'http://localhost:3000/Users';
+
   statusList=['At Work', 'On Leave', 'Inactive'];
 
   constructor(private formBuilder: FormBuilder,
-    private registrationService: RegisterService,
-    private routes: Router) { }
+              private registrationService: RegisterService,
+              private routes: Router,
+              private Http: HttpClient) { }
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -36,10 +39,9 @@ export class RegisterComponent implements OnInit {
   onRegister(){
     console.log('You have been registered. Please log in to continue');
     console.log('A new user has been added.');
+    this.submitted = true;
     this.registrationService.createUser(this.signupForm.value);
-    // this.dataStorageService.storeAccounts();
     console.log(this.signupForm.value);
     this.routes.navigate(['/']);
   }
-
 }

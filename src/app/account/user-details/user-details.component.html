@@ -1,1 +1,35 @@
-<p>user-details works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li
+        class="li list-group-item"
+        style="cursor: pointer;">
+        Name: {{ user.lName }} {{ user.lName }} <br>
+        Email: {{ user.email }} <br>
+        Contact: {{ user.phoneNumber }} <br>
+        Status: {{ user.status }} <br>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group" appDropdown>
+      <button
+        type="button"
+        class="btn btn-primary button-toggle">
+        Manage Account
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a
+          style="cursor: pointer;"
+          (click)="onEdit()">Edit</a></li>
+        <li><a
+          style="cursor: pointer;" (click)="onEdit()">Edit</a></li>
+        <li><a style="cursor: pointer;" (click)="onDelete()">Remove Account</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -11,5 +11,17 @@ export class LeaveManagementComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  onApprove(id: number) {
+    console.log("Approved");
+  }
+  onReject(id: number) {
+    console.log("Rejected");
+  }
+  onCancel(id: number) {
+    console.log("Canceled");
+  }
+  onCompleted(id: number) {
+    console.log("Completed");
+  }
 
 }

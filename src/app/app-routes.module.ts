@@ -9,6 +9,9 @@ const appRoutes: Routes = [
     // Leave Actions
     { path: 'leave', loadChildren: () => import('./leave/leave.module').then(m => m.LeaveModule) },
 
+    //Account Actions
+    { path: 'user/account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+
     //404
     { path: 'not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/not-found', pathMatch: 'full' },

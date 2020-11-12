@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {take} from "rxjs/operators";
+import {User} from "../../../shared/models/register.model";
+import {AccountsService} from "../../../shared/services/account.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-user-value',
@@ -6,10 +10,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-value.component.css']
 })
 export class UserValueComponent implements OnInit {
+  @Input() user: User;
+  @Input() index: number;
 
-  constructor() { }
+  constructor(private accountService: AccountsService) { }
 
   ngOnInit(): void {
   }
-
 }

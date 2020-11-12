@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-server": "json-server --watch ./db.json",
+    "start-auth": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,7 +24,8 @@
     "@datorama/akita": "^4.22.0",
     "@datorama/akita-ng-entity-service": "^5.0.0",
     "@datorama/akita-ng-router-store": "^5.1.8",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^3.4.1",
+    "jsonwebtoken": "^8.5.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

@@ -7,10 +7,17 @@ import {LeaveListComponent} from "./leave-list/leave-list.component";
 import {LeaveManagementComponent} from "./leave-management/leave-management.component";
 import {LeaveComponent} from "./leave.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AlertComponent} from "../shared/helpers/alert/alert.component";
 
 
 @NgModule({
-  declarations: [LeaveComponent,LeaveFormComponent, LeaveListComponent, LeaveManagementComponent],
+  declarations: [
+    LeaveComponent,
+    LeaveFormComponent,
+    LeaveListComponent,
+    LeaveManagementComponent,
+    AlertComponent
+  ],
   imports: [
     CommonModule,
     LeaveRoutingModule,
@@ -18,7 +25,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     FormsModule
   ],
   exports: [
-    LeaveComponent
+    LeaveComponent,
+    LeaveFormComponent,
+    LeaveListComponent,
+    LeaveManagementComponent,
+    AlertComponent
   ]
 })
 export class LeaveModule { }

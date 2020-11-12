@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           console.log('Success!', response);
           // localStorage.setItem('token', response.access_token);
           // localStorage.setItem('user', JSON.stringify(response.user));
-          this.routes.navigate(['user']);
+          this.routes.navigate(['leave/form']);
         }
         ,
         error => {

@@ -1,1 +1,12 @@
-<p>leave-list works!</p>
+<div class="row">
+  <div class="col-md-10">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <a *ngFor="let list of leaveList">
+          <p>Employee: get name</p>
+          {{ list }} <br>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

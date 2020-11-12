@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { User } from '../../shared/models/register.model';
+import { User } from '../models/register.model';
 
 @Injectable({
   providedIn: 'root'
