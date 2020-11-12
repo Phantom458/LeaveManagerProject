@@ -1,13 +1,13 @@
 <div class="row">
   <a
-    [routerLink]="[index, 'detail']"
+    [routerLink]="['../' ,user.id, 'detail']"
     routerLinkActive="active"
     style="cursor: pointer;"
     class="list-group-item clearfix">
     <div class="pull-left">
-      <h4 class="list-group-item-heading">{{ user.id }}. {{ user.fName }} {{ user.lName }}</h4>
+      <h4 class="list-group-item-heading">{{ user.id }}. {{ user.firstName }} {{ user.lastName }}</h4>
       <p class="list-group-item-text">{{ user.email }}</p>
-      <p class="list-group-item-text">{{ user.phoneNumber }}</p>
+      <p class="list-group-item-text">{{ user.phone }}</p>
     </div>
   </a>
 </div>

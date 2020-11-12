@@ -1,69 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import {User} from "../models/register.model";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 export class AccountsService {
   id: number;
 
-  constructor() {
+  constructor(private Http: HttpClient) {
   }
 
-  userAdded = new Subject<User[]>();
-  idAccess = new Subject<number>();
-
-  messageUpdated = new Subject<string>();
-
-  private users: User[] = [
-    new User(0, 'Error', 'Magnet', 'sawan.42n@gmail.com',
-      17491632, 'iamalemon', 'On Leave'),
-
-    new User(1, 'The', 'Beast', 'sawee42@gmail.com',
-      17694200, 'iambatman', 'At Work'),
-
-    new User(2, 'No', 'One', 'noone@gmail.com',
-      17777777, 'iamnoone', 'Inactive')
-  ];
+  private accountURL = 'http://localhost:3000/Users';
 
   //Account Actions
-  getAllAccounts() {
-    return this.users.slice();
+  getAllAccounts(): Observable<User[]> {
+    return this.Http.get<User[]>(this.accountURL)
+      // .catchError(this.errorHandler)
   }
-
-  getAccountById(index: number) {
-    return this.users[index];
+  // errorHandler(error: HttpErrorResponse){
+  //   return Observable.throwError(error.message || 'Server Error')
+  // }
+  getAccountById(id: number): Observable<User> {
+    // return this.users[index];
+    return this.Http.get<User>(`${this.accountURL}/${id}`);
   }
-
-  addAccount(user: User) {
-    this.users.push({id: (this.users.length), ...user});
-    this.userAdded.next(this.users.slice());
+  addAccount(newAccount: User): Observable<User> {
+    return this.Http.post<User>(this.accountURL, newAccount);
   }
-
-  updateAccount(index: number, updatedAccount: User) {
-    this.users[index] = updatedAccount;
-    this.userAdded.next(this.users.slice());
+  updateAccount(user: User, id: number): Observable<any> {
+    return this.Http.patch<any>(`${this.accountURL}/${id}`, user);
   }
-
-  deleteAccount(index: number) {
-    this.users.splice(index, 1);
-    this.userAdded.next(this.users.slice());
+  deleteAccount(id: number) {
+    return this.Http.delete(`${this.accountURL}/${id}`);
+  }
+  adminChanges(changes, id: number): Observable<any> {
+    return this.Http.put<any>(`${this.accountURL}/${id}`, id)
   }
 
   //Observables
-  checkMessage(): Observable<string> {
-    return this.messageUpdated.asObservable();
-  }
-
-  getMessage(id: number) {
-    return this.users[id].adminMessage;
-  }
-
-  resetMessage(id: number) {
-    this.users[id].adminMessage = '';
-    this.messageUpdated.next(this.users[id].adminMessage = '');
-  }
-
-  getId(): Observable<number> {
-    return this.idAccess.asObservable();
-  }
+  // checkMessage(): Observable<string> {
+  //   return this.messageUpdated.asObservable();
+  // }
+  // getMessage(id: number) {
+  //   return this.users[id].adminMessage;
+  // }
+  // resetMessage(id: number) {
+  //   this.users[id].adminMessage = '';
+  //   this.messageUpdated.next(this.users[id].adminMessage = '');
+  // }
 }

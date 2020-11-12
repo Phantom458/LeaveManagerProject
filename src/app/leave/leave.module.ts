@@ -8,6 +8,7 @@ import {LeaveManagementComponent} from "./leave-management/leave-management.comp
 import {LeaveComponent} from "./leave.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AlertComponent} from "../shared/helpers/alert/alert.component";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -15,21 +16,20 @@ import {AlertComponent} from "../shared/helpers/alert/alert.component";
     LeaveComponent,
     LeaveFormComponent,
     LeaveListComponent,
-    LeaveManagementComponent,
-    AlertComponent
+    LeaveManagementComponent
   ],
   imports: [
     CommonModule,
     LeaveRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   exports: [
     LeaveComponent,
     LeaveFormComponent,
     LeaveListComponent,
-    LeaveManagementComponent,
-    AlertComponent
+    LeaveManagementComponent
   ]
 })
 export class LeaveModule { }

@@ -10,25 +10,17 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class NavBarComponent implements OnInit {
 
-  // role: string = '';
-
   constructor(public authService: AuthService,
     private routes: Router) { }
 
   ngOnInit(): void {
-    // this.authService.checkRole
-    //   .subscribe(
-    //     (role => {
-    //       this.role = role;
-    //     })
-    //   )
   }
 
-  onMyPage() {
-    this.routes.navigate(['']);
+  goToDetail() {
+    this.routes.navigate(['user/account',2,'detail'])
   }
   onAddUser() {
-    this.routes.navigate(['']);
+    this.routes.navigate(['user/register']);
   }
   onLogout() {
     this.authService.logoutUser();

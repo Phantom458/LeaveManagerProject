@@ -5,6 +5,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import {UserListComponent} from "./user-list/user-list.component";
 import {UserValueComponent} from "./user-list/user-value/user-value.component";
 import {UserDetailsComponent} from "./user-details/user-details.component";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {UserDetailsComponent} from "./user-details/user-details.component";
   ],
   imports: [
     CommonModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    SharedModule
   ],
   exports: [
     UserListComponent,

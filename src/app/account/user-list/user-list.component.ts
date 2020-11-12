@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../shared/models/register.model";
-import {AccountsService} from "../../shared/services/account.service";
 import {Subscription} from "rxjs";
+import {AccountsService} from "../../shared/services/account.service";
 
 @Component({
   selector: 'app-user-list',
@@ -10,22 +10,13 @@ import {Subscription} from "rxjs";
 })
 export class UserListComponent implements OnInit {
   users: User[];
-  subscription: Subscription;
+  errorMessage;
 
-  constructor(private accountsService: AccountsService) { }
+  constructor(private accountService: AccountsService) { }
 
   ngOnInit(): void {
-    this.subscription = this.accountsService.userAdded
-      .subscribe(
-        (users: User[]) => {
-          this.users = users;
-        }
-      );
-    this.users = this.accountsService.getAllAccounts();
+    this.accountService.getAllAccounts()
+      .subscribe(allAccounts => this.users = allAccounts,
+      error => this.errorMessage = error);
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
 }

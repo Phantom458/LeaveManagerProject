@@ -2,8 +2,8 @@
   "Users": [
     {
       "id": 1,
-      "first_name": "Sawan",
-      "last_name": "Nepal",
+      "firstName": "Sawan",
+      "lastName": "Nepal",
       "email": "sawee42@gmail.com",
       "phone": "+97517491632",
       "password": "iamGod",
@@ -13,8 +13,8 @@
     },
     {
       "id": 2,
-      "first_name": "Error",
-      "last_name": "Magnet",
+      "firstName": "Error",
+      "lastName": "Magnet",
       "email": "errormagnet@gmail.com",
       "phone": "+97517489859",
       "password": "em69420",
@@ -24,44 +24,14 @@
     },
     {
       "id": 3,
-      "first_name": "No",
-      "last_name": "One",
+      "firstName": "No",
+      "lastName": "One",
       "email": "noone@gmail.com",
       "phone": "+97577487759",
       "password": "iamnoone",
       "confirm_password": "iamnoone",
       "status": "Inactive",
       "role": "user"
-    },
-    {
-      "email": "sawee42@gmail.com",
-      "password": "iamGod",
-      "id": 4
-    },
-    {
-      "email": "therock@gmail.com",
-      "password": "tiny",
-      "id": 5
-    },
-    {
-      "email": "sawee42@gmail.com",
-      "password": "i",
-      "id": 6
-    },
-    {
-      "email": "sawan.42n@gmail.com",
-      "password": "wsd",
-      "id": 7
-    },
-    {
-      "email": "sawan.42n@gmail.com",
-      "password": "s",
-      "id": 8
-    },
-    {
-      "email": "sawan.42n@gmail.com",
-      "password": "s",
-      "id": 9
     }
   ],
   "Leaves": [

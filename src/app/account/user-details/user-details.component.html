@@ -1,12 +1,22 @@
 <div class="row">
   <div class="col-xs-12">
+    <app-alert
+      [message]="deletionMessage"
+      *ngIf="deletionMessage"
+      (close)="onHandleError()"
+    ></app-alert>
+    <app-alert
+      [message]="errorMessage"
+      *ngIf="errorMessage"
+      (close)="onHandleError()"
+    ></app-alert>
     <ul class="list-group">
       <li
-        class="li list-group-item"
-        style="cursor: pointer;">
-        Name: {{ user.lName }} {{ user.lName }} <br>
+        class="li list-group-item">
+        ID: {{ user.id }} <br>
+        Name: {{ user.firstName }} {{ user.lastName }} <br>
         Email: {{ user.email }} <br>
-        Contact: {{ user.phoneNumber }} <br>
+        Contact: {{ user.phone }} <br>
         Status: {{ user.status }} <br>
       </li>
     </ul>
@@ -25,10 +35,10 @@
       <ul class="dropdown-menu">
         <li><a
           style="cursor: pointer;"
-          (click)="onEdit()">Edit</a></li>
+          (click)="onEdit()">Edit(user)</a></li>
         <li><a
-          style="cursor: pointer;" (click)="onEdit()">Edit</a></li>
-        <li><a style="cursor: pointer;" (click)="onDelete()">Remove Account</a></li>
+          style="cursor: pointer;"
+          (click)="onDelete()">Remove Account</a></li>
       </ul>
     </div>
   </div>
