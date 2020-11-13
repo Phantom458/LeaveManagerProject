@@ -14,7 +14,7 @@ const routes: Routes = [
     component: LeaveListComponent
   },
   {
-    path: 'manage',
+    path: ':id/manage',
     component: LeaveManagementComponent
   }
 ];

@@ -19,6 +19,7 @@ export class NavBarComponent implements OnInit {
   goToDetail() {
     this.routes.navigate(['user/account',2,'detail'])
   }
+
   onAddUser() {
     this.routes.navigate(['user/register']);
   }
