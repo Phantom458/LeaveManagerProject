@@ -16,13 +16,6 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToDetail() {
-    this.routes.navigate(['user/account',2,'detail'])
-  }
-
-  onAddUser() {
-    this.routes.navigate(['user/register']);
-  }
   onLogout() {
     this.authService.logoutUser();
   }

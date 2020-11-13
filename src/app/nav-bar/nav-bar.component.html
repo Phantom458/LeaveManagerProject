@@ -11,14 +11,16 @@
                     routerLinkActive="active">
                   <a
                     role="button"
-                    (click)="goToDetail()">User(for users)</a></li>
+                    [routerLink]="['user/account',2,'detail']">User(for users)</a></li>
               <li
                 routerLinkActive="active"
               ><a routerLink="user/account/list">Users(admin)</a></li>
                 <!-- Leave Application for Users -->
                 <li
                     routerLinkActive="active">
-                    <a routerLink="leave/form">Leave Application(user)</a></li>
+                    <a
+                      role="button"
+                      [routerLink]="['leave',2,'form']">Leave Application(user)</a></li>
                 <!-- Leave Management for Admin -->
                 <li
                     routerLinkActive="active">
@@ -40,7 +42,7 @@
                     <!-- User Add for Admin -->
                     <li><a
                             style="cursor: pointer;"
-                            (click)="onAddUser()">
+                            routerLink="user/register">
                             Add User
                         </a>
                     </li>

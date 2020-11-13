@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Subscription} from "rxjs";
 import {LeaveService} from "../../shared/services/leave.service";
+import {AppliedModel} from "../../shared/models/applied.model";
+import {User} from "../../shared/models/register.model";
+import {AccountsService} from "../../shared/services/account.service";
 
 @Component({
   selector: 'app-leave-list',
@@ -8,18 +10,14 @@ import {LeaveService} from "../../shared/services/leave.service";
   styleUrls: ['./leave-list.component.css']
 })
 export class LeaveListComponent implements OnInit {
-  subscription: Subscription;
-  leaveList = [];
+  appliedList: AppliedModel[];
+  errorMessage;
 
-  constructor(private leaveService: LeaveService) { }
+  constructor(private leaveService: LeaveService,
+              private accountsService: AccountsService) { }
 
   ngOnInit(): void {
-    this.subscription = this.leaveService.getList()
-      .subscribe(
-        (leaveList) => {
-          this.leaveList.push(leaveList);
-        }
-      )
+    this.leaveService.getAppliedLeave()
+      .subscribe(appliedLeave => this.appliedList = appliedLeave);
   }
-
 }

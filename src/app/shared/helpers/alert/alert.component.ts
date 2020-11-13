@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-alert',
@@ -8,9 +7,9 @@ import { Subject } from 'rxjs/internal/Subject';
 })
 export class AlertComponent {
   @Input() message: string;
-  close = new Subject<void>();
+  @Output() close = new EventEmitter<void>();
 
   onClose() {
-    this.close.next();
+    this.close.emit();
   }
 }

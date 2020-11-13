@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import { passwordValidator } from '../../shared/validators/password.validator';
-import {RegisterService} from "../../shared/services/register.service";
 import {AccountsService} from "../../shared/services/account.service";
+import {Leave} from "../../shared/models/leave.model";
+import {LeaveService} from "../../shared/services/leave.service";
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,13 @@ export class RegisterComponent implements OnInit {
   editMode = false;
 
   id: number;
+  defaultLeave: Leave[];
 
   statusList=['At Work', 'On Leave', 'Inactive'];
 
   constructor(private formBuilder: FormBuilder,
               private accountService: AccountsService,
+              private leaveService: LeaveService,
               private routes: Router,
               private route: ActivatedRoute) { }
 
@@ -32,6 +35,7 @@ export class RegisterComponent implements OnInit {
           this.id = +params['id'];
           this.editMode = params['id'] != null;
           this.initForm();
+          this.getDefaultLeave();
         }
       )
   }
@@ -45,8 +49,13 @@ export class RegisterComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: [''],
     status: ['', Validators.required]
-  }, {validators: passwordValidator});
-}
+    }, {validators: passwordValidator});
+  }
+
+  private getDefaultLeave() {
+    this.leaveService.getDefaultLeave()
+      .subscribe(defaultLeave => this.defaultLeave = defaultLeave);
+  }
 
   onRegister(){
     this.submitted = true;
@@ -58,7 +67,7 @@ export class RegisterComponent implements OnInit {
     }
     else {
       this.accountService.addAccount(this.signupForm.value);
-      console.log(this.signupForm.value);
+      this.leaveService.createLeave(this.defaultLeave);
       this.formMessage = 'Registration successful! Please log in to continue';
       this.routes.navigate(['/']);
     }

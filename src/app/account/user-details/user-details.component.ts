@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {User} from "../../shared/models/register.model";
 import {Subscription} from "rxjs";
 import {AccountsService} from "../../shared/services/account.service";
+import {LeaveService} from "../../shared/services/leave.service";
 
 @Component({
   selector: 'app-user-details',
@@ -12,11 +13,11 @@ import {AccountsService} from "../../shared/services/account.service";
 export class UserDetailsComponent implements OnInit {
   user: User;
   id: number;
-  errorMessage;
-
-  deletionMessage;
+  errorMessage = '';
+  serverMessage;
 
   constructor(private accountService: AccountsService,
+              private leaveService: LeaveService,
               private route: ActivatedRoute,
               private routes: Router) { }
 
@@ -30,6 +31,8 @@ export class UserDetailsComponent implements OnInit {
     this.accountService.getAccountById(this.id)
       .subscribe(accounts => this.user = accounts,
         error => this.errorMessage = error);
+    // this.leaveService.getMessage(this.id)
+    //   .subscribe(message => this.serverMessage = message);
   }
 
   onEdit() {
@@ -38,11 +41,15 @@ export class UserDetailsComponent implements OnInit {
 
   onDelete() {
     this.accountService.deleteAccount(this.id);
-    this.deletionMessage = 'Your account has been successfully removed';
+    this.serverMessage = 'Your account has been successfully removed';
     this.routes.navigate(['/'])
   }
 
   onHandleError() {
-    this.deletionMessage = null;
+    this.errorMessage = null;
+  }
+  onHandleMessage() {
+    this.serverMessage = null;
+    this.leaveService.removeMessage(this.id);
   }
 }

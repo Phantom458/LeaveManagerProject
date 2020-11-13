@@ -1,14 +1,11 @@
+<p>User list working</p>
+<div *ngIf="errorMessage">
+  <p>{{ errorMessage }}</p>
+</div>
 <div class="row">
-  <div class="col-md-10">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <a
-          *ngFor="let list of leaveList"
-          [routerLink]=['../']>
-          <p>Employee: get name</p>
-          {{ list }} <br>
-        </a>
-      </li>
-    </ul>
+  <div class="col-xs-12">
+    <app-leave-value
+      *ngFor="let leave of appliedList"
+      [appliedLeaveData]="leave"></app-leave-value>
   </div>
 </div>

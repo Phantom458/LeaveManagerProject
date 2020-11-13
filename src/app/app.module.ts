@@ -8,19 +8,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 // import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 // import { environment } from '../environments/environment';
 import {AppRoutingModule} from "./app-routes.module";
-import {DropdownDirective} from "./shared/helpers/dropdown.directive";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
-    DropdownDirective
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     NavBarComponent

@@ -6,7 +6,7 @@ import {LeaveManagementComponent} from "./leave-management/leave-management.comp
 
 const routes: Routes = [
   {
-    path: 'form',
+    path: ':id/form',
     component: LeaveFormComponent
   },
   {

@@ -3,14 +3,24 @@
   <div class="col-md-6">
     <ul>
       <li
+        class="list-group-item"
+        *ngFor="let leaveData of userLeaveLeft">
+        <h3>Employee ID: {{ leaveData.id }}</h3>
+        <h4>Leave data of user: </h4>
+        <p>Casual leave taken : </p>
+        <p>Sick leave taken : </p>
+        <p>Maternity/Paternity leave taken : </p>
+        <p>Toil leave taken : </p>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <ul>
+      <li
         class="list-group-item">
-        <!--          *ngFor="let leaveAvailable of userData">-->
-        <p>Employee: </p>
-        <p>Leave Available: </p>
-        Casual Leave:               <br>
-        Sick Leave:                 <br>
-        Maternity/Paternity Leave:  <br>
-        Toil:                       <br>
+        <h4>Leave Requested: </h4>
+        <p>Leave Type: </p>
+        <p>Number of days : </p>
       </li>
     </ul>
   </div>
@@ -22,22 +32,22 @@
           <p>Leave Requested:</p>
           Casual Leave:               <br>
           <button
-            (click)="onApprove(1)"
+            (click)="onApprove()"
             class="btn btn-success"
             type="button">Approve
           </button>
           <button
-            (click)="onReject(1)"
+            (click)="onReject()"
             class="btn btn-danger"
             type="button">Reject
           </button>
           <button
-            (click)="onCancel(1)"
+            (click)="onCancel()"
             class="btn btn-primary"
             type="button">Cancel
           </button>
           <button
-            (click)="onCompleted(1)"
+            (click)="onCompleted()"
             class="btn btn-success"
             type="button">Completed
           </button>
