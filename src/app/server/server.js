@@ -37,7 +37,7 @@ function isAuthenticated({email, password}) {
 }
 
 //Check is user exists then create and send a JWT token
-server.post('/auth/login', (req, res) => {
+server.post('/guards/login', (req, res) => {
   const {email, password} = req.body;
   if (isAuthenticated({email, password}) === false) {
     const status = 401;

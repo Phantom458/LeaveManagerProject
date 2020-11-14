@@ -1,14 +1,17 @@
 <div class="row">
   <a
-    [routerLink]="['../' ,appliedLeaveData.id, 'manage']"
+    [routerLink]="['../' ,appliedLeaveData?.id, 'manage']"
     routerLinkActive="active"
     style="cursor: pointer;"
     class="list-group-item clearfix">
     <div class="pull-left">
-    <h4 class="list-group-item-heading">Employee ID: {{ appliedLeaveData.id }}
-    </h4>
-      <p class="list-group-item-text">Type of leave: {{ appliedLeaveData.type }}</p>
-      <p class="list-group-item-text">Leave requested from {{ appliedLeaveData.startDate }} to {{ appliedLeaveData.endDate }}</p>
+      <h3>Employee ID: {{ appliedLeaveData?.id }}</h3>
+          <h4 class="list-group-item-heading">Type of leave: </h4>
+          <p>{{ appliedLeaveData?.type | titlecase }}</p>
+          <h4 class="list-group-item-heading">Leave requested from: </h4>
+          <p class="list-group-item-text">
+            {{ appliedLeaveData?.startDate | date:'fullDate' }} to {{ appliedLeaveData?.endDate | date:'fullDate' }}
+          </p>
     </div>
   </a>
 </div>

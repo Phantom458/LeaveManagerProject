@@ -18,7 +18,5 @@ import {LeaveTypeModel} from "./leave-type.model";
 
 export interface Leave {
   id: number,
-  leave: [
-    LeaveTypeModel
-  ]
+  leave: LeaveTypeModel[]
 }

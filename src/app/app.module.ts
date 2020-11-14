@@ -10,6 +10,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {AppRoutingModule} from "./app-routes.module";
 import {SharedModule} from "./shared/shared.module";
 
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +23,9 @@ import {SharedModule} from "./shared/shared.module";
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     NavBarComponent

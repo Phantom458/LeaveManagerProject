@@ -17,7 +17,7 @@ export class LeaveFormComponent implements OnInit {
   private selectedLeave: string;
   alertMessage = null;
 
-  leaveList = ['Casual', 'Sick', 'Maternity/Paternity', 'Toil'];
+  leaveList = ['Casual', 'Sick', 'Maternity', 'Toil'];
 
   get leaveType() { return this.leaveForm.get('leaveType'); }
   get startDate() { return this.leaveForm.get('startDate'); }
@@ -63,11 +63,10 @@ export class LeaveFormComponent implements OnInit {
 
   onHandleMessage() {
     this.alertMessage = null;
+    this.routes.navigate(['user/account', this.id, 'detail'])
   }
 
   onCancel() {
-    this.routes.navigate(['../'], {relativeTo: this.route})
+    this.routes.navigate(['user/account', this.id, 'detail'])
   }
-
-
 }

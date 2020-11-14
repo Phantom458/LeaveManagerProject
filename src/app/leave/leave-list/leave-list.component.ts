@@ -10,8 +10,7 @@ import {AccountsService} from "../../shared/services/account.service";
   styleUrls: ['./leave-list.component.css']
 })
 export class LeaveListComponent implements OnInit {
-  appliedList: AppliedModel[];
-  errorMessage;
+  appliedList: AppliedModel;
 
   constructor(private leaveService: LeaveService,
               private accountsService: AccountsService) { }

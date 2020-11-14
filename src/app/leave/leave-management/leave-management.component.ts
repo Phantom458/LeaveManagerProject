@@ -3,6 +3,8 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LeaveService} from "../../shared/services/leave.service";
 import {Leave} from "../../shared/models/leave.model";
 import {AppliedModel} from "../../shared/models/applied.model";
+import {AccountsService} from "../../shared/services/account.service";
+import {User} from "../../shared/models/register.model";
 
 @Component({
   selector: 'app-leave-management',
@@ -11,11 +13,13 @@ import {AppliedModel} from "../../shared/models/applied.model";
 })
 export class LeaveManagementComponent implements OnInit {
   id: number;
-  userLeaveLeft: Leave[] = [];
-  userAppliedLeave: AppliedModel[] = [];
+  userLeaveLeft: Leave;
+  userAppliedLeave: AppliedModel;
+  userData: User;
 
-  constructor(private route: ActivatedRoute,
-              private leaveService: LeaveService,
+  constructor(private leaveService: LeaveService,
+              private accountService: AccountsService,
+              private route: ActivatedRoute,
               private routes: Router) { }
 
   ngOnInit(): void {
@@ -25,26 +29,28 @@ export class LeaveManagementComponent implements OnInit {
           this.id = +params['id'];
         }
       )
-    this.leaveService.getLeaveById(1)
+    this.accountService.getAccountById(this.id)
+      .subscribe(userData => this.userData = userData);
+    this.leaveService.getLeaveById(this.id)
       .subscribe(userLeave => this.userLeaveLeft = userLeave);
-    this.leaveService.getAppliedLeaveById(1)
+    this.leaveService.getAppliedLeaveById(this.id)
       .subscribe(appliedLeave => this.userAppliedLeave = appliedLeave);
   }
 
   onApprove() {
     this.leaveService.onLeaveAccept(this.id);
+    this.routes.navigate(['../../list'], {relativeTo: this.route});
   }
   onReject() {
     this.leaveService.onLeaveReject(this.id);
+    this.routes.navigate(['../../list'], {relativeTo: this.route});
   }
   onCancel() {
     this.leaveService.onLeaveComplete(this.id);
+    this.routes.navigate(['../../list'], {relativeTo: this.route});
   }
   onCompleted() {
     this.leaveService.onLeaveComplete(this.id);
-  }
-
-  addLeaveDays() {
-
+    this.routes.navigate(['../../list'], {relativeTo: this.route});
   }
 }

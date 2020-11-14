@@ -6,31 +6,33 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <!-- User List for Users -->
-                <li
-                    routerLinkActive="active">
+                <li routerLinkActive="active" *ngIf="userId > 1">
                   <a
                     role="button"
-                    [routerLink]="['user/account',2,'detail']">User(for users)</a></li>
-              <li
-                routerLinkActive="active"
-              ><a routerLink="user/account/list">Users(admin)</a></li>
+                    [routerLink]="['user/account', userId, 'detail']">User(for users)
+                  </a>
+                </li>
+              <li routerLinkActive="active" *ngIf="userId == 1">
+                <a
+                  routerLink="user/account/list">Users(admin)
+                </a>
                 <!-- Leave Application for Users -->
-                <li
-                    routerLinkActive="active">
+              </li>
+                <li routerLinkActive="active" *ngIf="userId > 1">
                     <a
                       role="button"
-                      [routerLink]="['leave',2,'form']">Leave Application(user)</a></li>
+                      [routerLink]="['leave', userId, 'form']">Leave Application(user)
+                    </a>
+                </li>
                 <!-- Leave Management for Admin -->
-                <li
-                    routerLinkActive="active">
+                <li routerLinkActive="active" *ngIf="userId == 1">
                     <a routerLink="leave/list">Manage Leave(admin)</a>
                 </li>
             </ul>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown"  appDropdown>
+            <li class="dropdown"  appDropdown *ngIf="userId != null">
                 <a
                     style="cursor: pointer;"
                     class="dropdown-toggle"
@@ -40,7 +42,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User Add for Admin -->
-                    <li><a
+                    <li *ngIf="userId == 1">
+                      <a
                             style="cursor: pointer;"
                             routerLink="user/register">
                             Add User

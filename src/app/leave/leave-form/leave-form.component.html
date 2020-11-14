@@ -4,6 +4,8 @@
     *ngIf="alertMessage"
     (close)="onHandleMessage()"
   ></app-alert>
+  <h2>Leave Application Form</h2>
+  <hr>
   <form
     [formGroup]="leaveForm"
     *ngIf="!submitted"
@@ -23,7 +25,7 @@
       <br>
       <h3>{{ selectedLeave }} Leave:</h3>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="selectedLeave">
       <div class="col-md-6 form-group">
         <label for="startDate">Start Date</label>
         <input
@@ -55,7 +57,7 @@
           </small>
         </div>
       </div>
-    <div class="form-group col-xs-6">
+    <div class="form-group col-xs-6" *ngIf="selectedLeave">
       <p>Person responsible for handling your task in your absence. (Optional)</p>
       <label for="interim">Interim</label>
       <input
@@ -68,7 +70,7 @@
     <div class="row">
       <div class="col-xs-12">
         <button
-          [disabled]="!leaveForm.valid"
+          *ngIf="leaveForm.valid"
           class="btn btn-primary"
           type="submit">
           Apply

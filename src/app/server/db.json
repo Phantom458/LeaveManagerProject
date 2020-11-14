@@ -129,6 +129,7 @@
       "type": "casual",
       "startDate": "2020-11-13",
       "endDate": "2020-11-20",
+      "daysApplied": 7,
       "interim": "John Dophu"
     },
     {
@@ -136,13 +137,15 @@
       "type": "toil",
       "startDate": "2020-11-15",
       "endDate": "2020-11-18",
+      "daysApplied": 3,
       "adminMessage": "Your leave has been rejected. Please contact the HRM for details."
     },
     {
       "id": 3,
       "type": "sick",
       "startDate": "2020-11-30",
-      "endDate": "2020-12-12"
+      "endDate": "2020-12-12",
+      "daysApplied": 12
     }
   ]
 }

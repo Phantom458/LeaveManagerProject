@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import { Router } from '@angular/router';
+import {User} from "../models/register.model";
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +10,21 @@ import { Router } from '@angular/router';
 export class AuthService {
   constructor(private Http: HttpClient, private routes: Router) { }
 
-  private loginUrl = 'http://localhost:3000/auth/login'; // Server log in Service
+  private hasId = null;
+  private role = new BehaviorSubject<number>(this.hasId);
 
-  loginUser(userData): Observable<any> {
-    return this.Http.post<any>(this.loginUrl, userData);
+  loginUser(id: number) {
+    this.role.next(this.hasId = id);
+    console.log(id);
+    this.routes.navigate(['user/account', id, 'detail'])
   }
 
-  // getToken() {
-  //   return localStorage.getItem('token');
-  // }
-
-  isLoggedIn() {
-    return !!localStorage.getItem('token');
+  checkRole(): Observable<number> {
+    return this.role.asObservable();
   }
-
-  admin() {
-    return this.isLoggedIn() && JSON.parse(JSON.stringify(localStorage.getItem('user'))).role === 'admin'; //working when its stringified.
-  }
-
-  // showUserId() {
-  //   return JSON.parse(localStorage.getItem('user')).id;
-  // }
 
   logoutUser() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.routes.navigate(['']);
+    this.role.next(this.hasId = null);
+    this.routes.navigate(['user/login']);
   }
 }

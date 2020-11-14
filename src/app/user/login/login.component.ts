@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AuthService} from "../../shared/services/auth.service";
+import {User} from "../../shared/models/register.model";
+import {AccountsService} from "../../shared/services/account.service";
 
 @Component({
   selector: 'app-login',
@@ -9,14 +11,19 @@ import {AuthService} from "../../shared/services/auth.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  userData: User[] = [];
+  storedPassword;
+  storedEmail;
 
   userLog: FormGroup;
   errorMessage = "";
 
   constructor(private routes: Router,
-    private authService: AuthService,
-    public formBuilder: FormBuilder,
-    private route: ActivatedRoute) { }
+              private authService: AuthService,
+              public formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private accountService: AccountsService
+              ) { }
 
     get email() {
       return this.userLog.get("email");
@@ -37,21 +44,21 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.authService.loginUser(this.userLog.value)
+    this.accountService.getAllAccounts()
       .subscribe(
-        response => {
-          console.log('Success!', response);
-          // localStorage.setItem('token', response.access_token);
-          // localStorage.setItem('user', JSON.stringify(response.user));
-          this.routes.navigate(['leave/form']);
-        }
-        ,
-        error => {
-          console.error('Error!', error)
-          this.errorMessage = "Invalid Username or Password. Please try again.";
-          this.userLog.reset();
-        }
+        userData => this.userData = userData
       );
+    const correctEmail = this.userData.find(user => user.email == this.email.value);
+    const correctPassword = this.userData.find(user => user.password == this.password.value);
+    const user = this.userData.filter(user => user.email === this.email.value);
+    const userId = (this.userData.indexOf(correctEmail) + 1);  //need to find a way to get the ID.
+    if (correctEmail && correctPassword) {
+      console.log(user.indexOf(correctEmail));
+      console.log(userId);
+      this.authService.loginUser(userId);
+    } else {
+      this.errorMessage = "Incorrect email or password";
+    }
   }
 
   onHandleError() {

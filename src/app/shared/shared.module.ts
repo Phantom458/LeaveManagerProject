@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import {AlertComponent} from "./helpers/alert/alert.component";
 import {LoadingSpinnerComponent} from "./helpers/loading-spinner/loading-spinner.component";
 import {PageNotFoundComponent} from "./helpers/page-not-found/page-not-found.component";
+import {DropdownDirective} from "./helpers/dropdown.directive";
 
 @NgModule({
   declarations: [
     AlertComponent,
     LoadingSpinnerComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DropdownDirective
   ],
   imports: [
     CommonModule
@@ -16,7 +18,8 @@ import {PageNotFoundComponent} from "./helpers/page-not-found/page-not-found.com
   exports: [
     AlertComponent,
     LoadingSpinnerComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DropdownDirective
   ]
 })
 export class SharedModule { }

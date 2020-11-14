@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {Leave} from "../models/leave.model";
-import {User} from "../models/register.model";
 import {HttpClient} from "@angular/common/http";
 import {AppliedModel} from "../models/applied.model";
 
@@ -23,14 +22,14 @@ export class LeaveService{
   }
 
     //To display applied leave in LeaveListComponent and LeaveManagementComponent
-    getAppliedLeave(): Observable<AppliedModel[]> {
-      return this.Http.get<AppliedModel[]>(this.appliedURL)
+    getAppliedLeave(): Observable<AppliedModel> {
+      return this.Http.get<AppliedModel>(this.appliedURL)
   }
-    getAppliedLeaveById(id: number): Observable<AppliedModel[]> {
-      return this.Http.get<AppliedModel[]>(`${this.appliedURL}/${id}`)
+    getAppliedLeaveById(id: number): Observable<AppliedModel> {
+      return this.Http.get<AppliedModel>(`${this.appliedURL}/${id}`)
     }
-    getLeaveById(id: number): Observable<Leave[]> {
-      return this.Http.get<Leave[]>(`${this.leaveURL}/${id}`)
+    getLeaveById(id: number): Observable<Leave> {
+      return this.Http.get<Leave>(`${this.leaveURL}/${id}`)   //getting undefined
   }
 
     //Save applied leave to database and update number of days
@@ -44,7 +43,7 @@ export class LeaveService{
       leaveApplied['startDate'] = startDate;
       leaveApplied['endDate'] = endDate;
       leaveApplied['interim'] = interim;
-      leaveApplied['adminMessage'] = 'Your leave has been approved. Please inform to the HR office once you are back'
+      leaveApplied['daysApplied'] = this.daysApplied;
       console.log(leaveApplied);
       return this.Http.post<AppliedModel[]>((this.appliedURL), leaveApplied);
     }
@@ -55,10 +54,13 @@ export class LeaveService{
     }
     onLeaveAccept(id: number) {
       const leaveDays = {};
+      const messageOnAccept = {};
       let daysTaken;
       this.getDays(id).subscribe(leaveTaken => daysTaken = leaveTaken)
       leaveDays['leaveTaken'] = daysTaken + this.daysApplied;
-      return this.Http.patch<number>(`${this.leaveURL}/leave`, leaveDays) //Need to connect with id
+      messageOnAccept['adminMessage'] = 'Your leave has been approved. Please inform to the HR office once you are back';
+      return this.Http.patch<number>(`${this.leaveURL}/${id}`, leaveDays) //Need to connect with id
+      return this.Http.patch<string>(`${this.appliedURL}/${id}`, messageOnAccept)
     }
 
     onLeaveComplete(id: number) {

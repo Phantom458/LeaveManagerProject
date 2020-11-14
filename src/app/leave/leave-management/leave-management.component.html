@@ -1,51 +1,45 @@
-<p>leave-management works!</p>
 <div class="row">
-  <div class="col-md-6">
-    <ul>
+  <div class="col-lg-12">
+    <h4 class="list-group-item-heading">Leave amounts left for {{ userData?.firstName }} {{ userData?.lastName }}</h4>
+    <hr>
+    <ul class="list-group">
       <li
         class="list-group-item"
-        *ngFor="let leaveData of userLeaveLeft">
-        <h3>Employee ID: {{ leaveData.id }}</h3>
-        <h4>Leave data of user: </h4>
-        <p>Casual leave taken : </p>
-        <p>Sick leave taken : </p>
-        <p>Maternity/Paternity leave taken : </p>
-        <p>Toil leave taken : </p>
+        *ngFor="let leaveData of userLeaveLeft?.leave">
+        <p>{{ leaveData.type | titlecase }} : {{ leaveData.leaveLeft }}</p>
       </li>
     </ul>
   </div>
-  <div class="col-md-6">
-    <ul>
-      <li
-        class="list-group-item">
-        <h4>Leave Requested: </h4>
-        <p>Leave Type: </p>
-        <p>Number of days : </p>
-      </li>
-    </ul>
-  </div>
-    <div class="col-xs-6">
+    <div class="col-lg-12">
       <ul class="list-group">
         <li
           class="list-group-item">
-          <!--          *ngFor="let leaveValue of leaveValues; let id of leaveId"-->
-          <p>Leave Requested:</p>
-          Casual Leave:               <br>
+          <h4>Leave Requested:</h4>
+          <hr>
+          <p>{{ userAppliedLeave?.type | titlecase }} Leave </p>
+          <p>
+            From {{ userAppliedLeave?.startDate | date:'fullDate' }} to {{ userAppliedLeave?.endDate | date:'fullDate' }}
+          </p>
+          <p>Number of Days: {{ userAppliedLeave.daysApplied }} Days</p>
+          <p *ngIf="userAppliedLeave.interim">Interim Mentioned: {{ userAppliedLeave.interim }}</p>
           <button
             (click)="onApprove()"
             class="btn btn-success"
             type="button">Approve
           </button>
+          |
           <button
             (click)="onReject()"
             class="btn btn-danger"
             type="button">Reject
           </button>
+          |
           <button
             (click)="onCancel()"
             class="btn btn-primary"
             type="button">Cancel
           </button>
+          |
           <button
             (click)="onCompleted()"
             class="btn btn-success"
@@ -54,5 +48,4 @@
         </li>
       </ul>
     </div>
-
 </div>
