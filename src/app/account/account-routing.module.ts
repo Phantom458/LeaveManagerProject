@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {UserDetailsComponent} from "./user-details/user-details.component";
 import {UserListComponent} from "./user-list/user-list.component";
 import {AdminGuard} from "../shared/guards/admin.guard";
+import {StatusEditComponent} from "./user-details/status-edit/status-edit.component";
 
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: 'list',
     component: UserListComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: ':id/edit',
+    component: StatusEditComponent,
     canActivate: [AdminGuard]
   }
   ];

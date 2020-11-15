@@ -7,17 +7,21 @@ import {UserValueComponent} from "./user-list/user-value/user-value.component";
 import {UserDetailsComponent} from "./user-details/user-details.component";
 import {SharedModule} from "../shared/shared.module";
 import {DropdownDirective} from "../shared/helpers/dropdown.directive";
+import { StatusEditComponent } from './user-details/status-edit/status-edit.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     UserListComponent,
     UserValueComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    StatusEditComponent
   ],
   imports: [
     CommonModule,
     AccountRoutingModule,
+    ReactiveFormsModule,
     SharedModule
   ],
   exports: [

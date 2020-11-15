@@ -8,7 +8,7 @@
       [formGroup]="signupForm"
       *ngIf="!submitted"
       (ngSubmit)="onRegister()">
-      <div class="form-group col-xs-6" *ngIf="userAuth != 1">
+      <div class="form-group col-xs-6">
         <label for="firstName">First Name</label>
         <input
           type="text"
@@ -21,7 +21,7 @@
             Please enter a valid name
           </small>
       </div>
-      <div class="form-group col-xs-6" *ngIf="userAuth != 1">
+      <div class="form-group col-xs-6">
           <label for="lastName">Last Name</label>
           <input
             type="text"
@@ -34,7 +34,7 @@
               Please enter a valid Name
             </small>
         </div>
-      <div class="form-group" *ngIf="userAuth != 1">
+      <div class="form-group">
         <label for="email">Email</label>
         <input
           type="text"
@@ -47,7 +47,7 @@
             Please enter a valid email
           </small>
       </div>
-      <div class="form-group" *ngIf="userAuth != 1">
+      <div class="form-group">
           <label for="phone">Phone Number</label>
           <input
             type="text"
@@ -60,7 +60,7 @@
               Please enter a valid Number
             </small>
         </div>
-        <div class="form-group" *ngIf="userAuth != 1">
+        <div class="form-group">
           <label for="password">Password</label>
           <input
             type="password"
@@ -80,7 +80,7 @@
             </small>
             </div>
         </div>
-        <div class="form-group" *ngIf="userAuth != 1">
+        <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
           <input
             type="password"
@@ -94,8 +94,8 @@
             </small>
         </div>
 
-        <h5>Status</h5>
-        <div class="row" *ngIf="userAuth == 1 || userAuth == null">
+        <strong *ngIf="userAuth == null">Status (Optional)</strong>
+        <div class="row" *ngIf="userAuth == null">
           <div class="form-group radio" *ngFor="let status of statusList">
             <label>
               <input
@@ -124,7 +124,7 @@
       </div>
       <div class="col-md-6">
         <button
-          *ngIf="userAuth == 1"
+          *ngIf="userAuth != null"
           (click)="onCancel()"
           class="btn btn-primary"
           type="button">
@@ -132,5 +132,4 @@
         </button>
       </div>
   </form>
-  {{ signupForm.value | json }}
   </div>

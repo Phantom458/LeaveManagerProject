@@ -8,6 +8,7 @@ import {LeaveService} from "../../shared/services/leave.service";
 import {ToastrService} from "ngx-toastr";
 import {AuthService} from "../../shared/services/auth.service";
 import {Subscription} from "rxjs";
+import {User} from "../../shared/models/register.model";
 
 @Component({
   selector: 'app-register',
@@ -21,8 +22,9 @@ export class RegisterComponent implements OnInit {
   private subscription: Subscription;
 
   id: number;
-  userAuth: number;
-  defaultLeave: Leave[];
+  userAuth: number = null;
+  defaultLeave: Leave;
+  userData: User[];
 
   statusList=['At Work', 'On Leave', 'Inactive'];
 
@@ -35,6 +37,10 @@ export class RegisterComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.accountService.getAllAccounts()
+      .subscribe(
+        userData => this.userData = userData
+      );
     this.subscription = this.authService.checkRole().subscribe(
       id => {
         this.userAuth = id;
@@ -56,6 +62,9 @@ export class RegisterComponent implements OnInit {
   get status() {
     return this.signupForm.get('status');
   }
+  get email() {
+    return this.signupForm.get('email');
+  }
 
   private initForm() {
   this.signupForm = this.formBuilder.group({
@@ -65,7 +74,7 @@ export class RegisterComponent implements OnInit {
     phone: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: [''],
-    status: ['', Validators.required]
+    status: ['']
     }, {validators: passwordValidator});
   }
 
@@ -75,25 +84,27 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister(){
-    this.submitted = true;
-    if(this.id > 1) {
+    if (this.userAuth == null && this.checkDupeEmail(this.email.value)) {
+      this.formMessage = 'This email has already been registered. SignIn to continue';
+    } else {
       this.submitted = true;
-      this.accountService.updateAccount(this.signupForm.value, this.id);
-      this.formMessage = 'Your changes have been saved';
-      this.routes.navigate(['../../account', this.id, 'detail'], {relativeTo: this.route})
-    }else if (this.id == 1) {
-      this.submitted = true;
-      let statusUpdate= {};
-      statusUpdate['status'] = this.status;
-      this.accountService.updateStatus(statusUpdate, this.id);
-      this.routes.navigate(['../../account', this.id, 'detail'], {relativeTo: this.route})
+      if(this.id != 1) {
+        this.submitted = true;
+        this.accountService.updateAccount(this.signupForm.value, this.id);
+        this.formMessage = 'Your changes have been saved';
+      }
+      else {
+        this.submitted = true;
+        this.accountService.addAccount(this.signupForm.value);
+        this.leaveService.createLeave(this.defaultLeave);
+        this.formMessage = 'Registration successful! Please log in to continue';
+      }
     }
-    else {
-      this.submitted = true;
-      this.accountService.addAccount(this.signupForm.value);
-      this.leaveService.createLeave(this.defaultLeave);
-      this.formMessage = 'Registration successful! Please log in to continue';
-      this.routes.navigate(['../login'], {relativeTo: this.route});
+  }
+  checkDupeEmail(email: string) {
+    const dupeEmail = this.userData.find(user => user.email == email);
+    if (dupeEmail) {
+      return true;
     }
   }
 
@@ -101,10 +112,15 @@ export class RegisterComponent implements OnInit {
     this.routes.navigate(['../login'], {relativeTo: this.route})
   }
   onCancel() {
-    this.routes.navigate(['../../account/list'], {relativeTo: this.route})
+    this.routes.navigate(['../../account/', this.id, 'detail'], {relativeTo: this.route})
   }
   onHandleError() {
     this.formMessage = null;
+    if(this.id > 1 || this.id == 1) {
+      this.routes.navigate(['user/account', this.id, 'detail'])
+    } else {
+      this.routes.navigate(['user/login']);
+    }
   }
 
   // showSuccess() {

@@ -10,10 +10,9 @@ import {AccountsService} from "../../shared/services/account.service";
   styleUrls: ['./leave-list.component.css']
 })
 export class LeaveListComponent implements OnInit {
-  appliedList: AppliedModel;
+  appliedList: AppliedModel[];
 
-  constructor(private leaveService: LeaveService,
-              private accountsService: AccountsService) { }
+  constructor(private leaveService: LeaveService) { }
 
   ngOnInit(): void {
     this.leaveService.getAppliedLeave()

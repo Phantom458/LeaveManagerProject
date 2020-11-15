@@ -7,6 +7,7 @@ import {LeaveService} from "../../shared/services/leave.service";
 import {AuthService} from "../../shared/services/auth.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {Leave} from "../../shared/models/leave.model";
+import {AppliedModel} from "../../shared/models/applied.model";
 
 @Component({
   selector: 'app-user-details',
@@ -18,16 +19,15 @@ export class UserDetailsComponent implements OnInit {
   leave: Leave;
   userId: number;
   userAuth: number;
-  errorMessage = '';
-  serverMessage;
+  formMessage: string;
+
   private subscription: Subscription;
 
   constructor(private accountService: AccountsService,
               private leaveService: LeaveService,
               private authService: AuthService,
               private route: ActivatedRoute,
-              private routes: Router,
-              private formBuilder: FormBuilder) { }
+              private routes: Router) { }
 
   ngOnInit(): void {
     this.route.params
@@ -35,47 +35,47 @@ export class UserDetailsComponent implements OnInit {
         (params: Params) => {
           this.userId = +params['id'];
         }
-      )
+      );
     this.subscription = this.authService.checkRole().subscribe(
       id => {
         this.userAuth = id;
-      },
-      err => {
-        console.error(`An error occurred: ${err.message}`);
       }
     );
     this.accountService.getAccountById(this.userId)
-      .subscribe(accounts => this.user = accounts,
-          error => this.errorMessage = error);
+      .subscribe(accounts => this.user = accounts
+      );
     this.leaveService.getLeaveById(this.userId)
-      .subscribe(leaveValues => this.leave = leaveValues,
-          error => this.errorMessage = error);
-    console.log(this.leave);    //getting data as undefined
-    // this.leaveService.getMessage(this.id)
-    //   .subscribe(message => this.serverMessage = message);
+      .subscribe(leaveValues => this.leave = leaveValues
+      );
   }
 
   onEdit() {
-    this.routes.navigate(['user', this.userId, 'edit']);
+    if (this.userAuth == 1) {
+      this.routes.navigate(['../edit'], {relativeTo: this.route});
+    } else {
+      this.routes.navigate(['user', this.userId, 'edit']);
+    }
+
   }
 
   onDelete() {
     if(this.userAuth != 1) {
       this.accountService.deleteAccount(this.userId);
-      this.serverMessage = 'Your account has been successfully removed';
-      this.routes.navigate(['/'])
+      this.leaveService.deleteLeave(this.userId);
+      this.formMessage = 'Your account has been successfully removed';
     } else {
       this.accountService.deleteAccount(this.userId);
-      this.serverMessage = 'Account has been successfully removed';
-      this.routes.navigate(['../../list'], {relativeTo: this.route})
+      this.leaveService.deleteLeave(this.userId);
+      this.formMessage = 'Account has been successfully removed';
     }
   }
 
-  onHandleError() {
-    this.errorMessage = null;
-  }
   onHandleMessage() {
-    this.serverMessage = null;
-    this.leaveService.removeMessage(this.userId);
+    this.formMessage = null;
+    if (this.userAuth != 1){
+      this.routes.navigate(['/'])
+    } else {
+      this.routes.navigate(['../../list'], {relativeTo: this.route})
+    }
   }
 }

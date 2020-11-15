@@ -4,6 +4,8 @@
     *ngIf="errorMessage"
     (close)="onHandleError()"
   ></app-alert>
+  <h3>Login or Sign Up</h3>
+  <hr>
   <form
       [formGroup]="userLog"
       (ngSubmit)="onLogin()">

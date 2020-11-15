@@ -4,6 +4,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AuthService} from "../../shared/services/auth.service";
 import {User} from "../../shared/models/register.model";
 import {AccountsService} from "../../shared/services/account.service";
+import {AppliedModel} from "../../shared/models/applied.model";
+import {LeaveService} from "../../shared/services/leave.service";
 
 @Component({
   selector: 'app-login',
@@ -11,9 +13,7 @@ import {AccountsService} from "../../shared/services/account.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  userData: User[] = [];
-  storedPassword;
-  storedEmail;
+  userData: User[];
 
   userLog: FormGroup;
   errorMessage = "";
@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.accountService.getAllAccounts()
+      .subscribe(
+        userData => this.userData = userData
+      );
     this.userLog = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -44,18 +48,13 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.accountService.getAllAccounts()
-      .subscribe(
-        userData => this.userData = userData
-      );
     const correctEmail = this.userData.find(user => user.email == this.email.value);
     const correctPassword = this.userData.find(user => user.password == this.password.value);
-    const user = this.userData.filter(user => user.email === this.email.value);
-    const userId = (this.userData.indexOf(correctEmail) + 1);  //need to find a way to get the ID.
+    const user = this.userData.filter(user => user.email === this.email.value); //Get single user [{data}]
+    const userSelected = user.find(user => user.email == this.email.value); //remove array and keep object
+
     if (correctEmail && correctPassword) {
-      console.log(user.indexOf(correctEmail));
-      console.log(userId);
-      this.authService.loginUser(userId);
+      this.authService.loginUser(userSelected.id);
     } else {
       this.errorMessage = "Incorrect email or password";
     }

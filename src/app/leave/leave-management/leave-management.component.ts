@@ -38,8 +38,15 @@ export class LeaveManagementComponent implements OnInit {
   }
 
   onApprove() {
-    this.leaveService.onLeaveAccept(this.id);
+    this.leaveService.onLeaveAccept(this.id, this.daysUpdate());
     this.routes.navigate(['../../list'], {relativeTo: this.route});
+  }
+  daysUpdate() {
+    const days = this.userLeaveLeft.leave.find(x => x.type == this.userAppliedLeave.type)
+    const updateLeaveDays = {}
+    updateLeaveDays['leaveLeft'] = days.leaveLeft - this.userAppliedLeave.daysApplied;
+    updateLeaveDays['leaveTaken'] = days.leaveTaken + this.userAppliedLeave.daysApplied;
+    return updateLeaveDays;
   }
   onReject() {
     this.leaveService.onLeaveReject(this.id);

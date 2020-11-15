@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LeaveService} from "../../shared/services/leave.service";
 import {DateValidators} from "../../shared/validators/date.validator";
+import {Leave} from "../../shared/models/leave.model";
+import {AppliedModel} from "../../shared/models/applied.model";
 
 @Component({
   selector: 'app-leave-form',

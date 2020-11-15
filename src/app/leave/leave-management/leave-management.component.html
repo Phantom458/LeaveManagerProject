@@ -12,16 +12,16 @@
   </div>
     <div class="col-lg-12">
       <ul class="list-group">
+        <h4>Leave Requested</h4>
+        <hr>
         <li
           class="list-group-item">
-          <h4>Leave Requested:</h4>
-          <hr>
-          <p>{{ userAppliedLeave?.type | titlecase }} Leave </p>
+          <p>Type of leave requested: {{ userAppliedLeave?.type | titlecase }} Leave </p>
           <p>
             From {{ userAppliedLeave?.startDate | date:'fullDate' }} to {{ userAppliedLeave?.endDate | date:'fullDate' }}
           </p>
-          <p>Number of Days: {{ userAppliedLeave.daysApplied }} Days</p>
-          <p *ngIf="userAppliedLeave.interim">Interim Mentioned: {{ userAppliedLeave.interim }}</p>
+          <p>Number of Days: {{ userAppliedLeave?.daysApplied }} Days</p>
+          <p *ngIf="userAppliedLeave?.interim">Interim Mentioned: {{ userAppliedLeave.interim }}</p>
           <button
             (click)="onApprove()"
             class="btn btn-success"
@@ -44,6 +44,11 @@
             (click)="onCompleted()"
             class="btn btn-success"
             type="button">Completed
+          </button>
+          <button
+            (click)="daysUpdate()"
+            class="btn btn-success"
+            type="button">check days
           </button>
         </li>
       </ul>

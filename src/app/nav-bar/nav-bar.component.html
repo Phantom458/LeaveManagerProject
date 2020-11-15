@@ -9,24 +9,24 @@
                 <li routerLinkActive="active" *ngIf="userId > 1">
                   <a
                     role="button"
-                    [routerLink]="['user/account', userId, 'detail']">User(for users)
+                    [routerLink]="['user/account', userId, 'detail']">User
                   </a>
                 </li>
               <li routerLinkActive="active" *ngIf="userId == 1">
                 <a
-                  routerLink="user/account/list">Users(admin)
+                  routerLink="user/account/list">Users
                 </a>
                 <!-- Leave Application for Users -->
               </li>
                 <li routerLinkActive="active" *ngIf="userId > 1">
                     <a
                       role="button"
-                      [routerLink]="['leave', userId, 'form']">Leave Application(user)
+                      [routerLink]="['leave', userId, 'form']">Leave Application
                     </a>
                 </li>
                 <!-- Leave Management for Admin -->
                 <li routerLinkActive="active" *ngIf="userId == 1">
-                    <a routerLink="leave/list">Manage Leave(admin)</a>
+                    <a routerLink="leave/list">Manage Leave</a>
                 </li>
             </ul>
         </div>
@@ -41,14 +41,6 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <!-- User Add for Admin -->
-                    <li *ngIf="userId == 1">
-                      <a
-                            style="cursor: pointer;"
-                            routerLink="user/register">
-                            Add User
-                        </a>
-                    </li>
                     <li><a
                             style="cursor: pointer;"
                             (click)="onLogout()">
