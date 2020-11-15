@@ -88,7 +88,7 @@ export class RegisterComponent implements OnInit {
       this.formMessage = 'This email has already been registered. SignIn to continue';
     } else {
       this.submitted = true;
-      if(this.id != 1) {
+      if(this.id < 1) {
         this.submitted = true;
         this.accountService.updateAccount(this.signupForm.value, this.id);
         this.formMessage = 'Your changes have been saved';

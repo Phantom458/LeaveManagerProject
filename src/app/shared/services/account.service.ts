@@ -25,22 +25,30 @@ export class AccountsService {
   getAccountById(id: number): Observable<User> {
     return this.Http.get<User>(`${this.accountURL}/${id}`);
   }
-  async addAccount(newAccount: User) {
-    await fetch(this.accountURL, {
-      method: 'Post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(newAccount)
-    })
+  addAccount(user: User) {
+    return this.Http.post<User>(this.accountURL, user)
+      .subscribe(responseData => {
+        console.log(responseData);
+      });
   }
 
-  updateAccount(user: User, id: number): Observable<User> {
-    return this.Http.patch<User>(`${this.accountURL}/${id}`, user);
+  updateAccount(user: User, id: number) {
+    return this.Http.patch<User>(`${this.accountURL}/${id}`, user)
+      .subscribe(responseData => {
+        console.log(responseData);
+      });
   }
-  updateStatus(status: object, id: number): Observable<object> {
-    return this.Http.patch<object>(`${this.accountURL}/${id}`, status);
+  updateStatus(status: object, id: number) {
+    return this.Http.patch<object>(`${this.accountURL}/${id}`, status)
+      .subscribe(responseData => {
+        console.log(responseData);
+      });
   }
-  deleteAccount(id: number): Observable<User> {
-    return this.Http.delete<User>(`${this.accountURL}/${id}`);
+  deleteAccount(id: number) {
+    return this.Http.delete<User>(`${this.accountURL}/${id}`)
+      .subscribe(responseData => {
+        console.log(responseData);
+      });
   }
 
   setMessage(message: string) {
