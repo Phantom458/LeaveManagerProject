@@ -5,7 +5,6 @@ import {Subscription} from "rxjs";
 import {AccountsService} from "../../shared/services/account.service";
 import {LeaveService} from "../../shared/services/leave.service";
 import {AuthService} from "../../shared/services/auth.service";
-import {FormBuilder, Validators} from "@angular/forms";
 import {Leave} from "../../shared/models/leave.model";
 import {AppliedModel} from "../../shared/models/applied.model";
 
@@ -22,6 +21,7 @@ export class UserDetailsComponent implements OnInit {
   userAuth: number;
   formMessage: string;
   adminMessage: string;
+  nullMessage: string;
 
   private subscription: Subscription;
 
@@ -72,8 +72,12 @@ export class UserDetailsComponent implements OnInit {
 
   messageUpdate() {
     const adminMessage = this.appliedLeave.adminMessage;
-    this.accountService.setMessage(adminMessage);
-    this.getMessage();
+    if (adminMessage == undefined) {
+      this.nullMessage = "No Leave Updates";
+      this.getMessage();
+    } else {
+      this.accountService.setMessage(adminMessage);
+    }
   }
   getMessage() {
     this.accountService.checkMessage()
@@ -92,6 +96,6 @@ export class UserDetailsComponent implements OnInit {
   onHandleAdminMessage() {
     this.adminMessage = null;
     this.accountService.resetMessage()
-    this.leaveService.deleteMessage(this.userId);
+    this.leaveService.resetLeaveData(this.userId);
   }
 }

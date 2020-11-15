@@ -24,6 +24,14 @@ export class RegisterComponent implements OnInit {
   id: number;
   userAuth: number = null;
   defaultLeave: Leave;
+  // private defaultLeave: Leave[] = [
+  //   new Leave(
+  //     [new LeaveTypeModel("casual", 30, 30, 0)],
+  //     [new LeaveTypeModel("sick", 60, 60, 0)],
+  //     [new LeaveTypeModel("maternity", 180, 180, 0)],
+  //     [new LeaveTypeModel("toil", 50, 50, 0)]
+  //   )
+  // ];
   userData: User[];
 
   statusList=['At Work', 'On Leave', 'Inactive'];

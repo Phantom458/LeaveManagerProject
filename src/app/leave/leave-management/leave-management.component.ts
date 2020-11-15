@@ -53,11 +53,11 @@ export class LeaveManagementComponent implements OnInit {
     this.routes.navigate(['../../list'], {relativeTo: this.route});
   }
   onCancel() {
-    this.leaveService.onLeaveComplete(this.id);
+    this.leaveService.resetLeaveData(this.id);
     this.routes.navigate(['../../list'], {relativeTo: this.route});
   }
   onCompleted() {
-    this.leaveService.onLeaveComplete(this.id);
+    this.leaveService.resetLeaveData(this.id);
     this.routes.navigate(['../../list'], {relativeTo: this.route});
   }
 }

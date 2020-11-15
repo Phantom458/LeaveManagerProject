@@ -14,6 +14,7 @@ import {AppliedModel} from "../../shared/models/applied.model";
 export class LeaveFormComponent implements OnInit {
   leaveForm: FormGroup;
   submitted = false;
+  allAppliedLeave: AppliedModel[];
   private id: number;
 
   private selectedLeave: string;
@@ -32,6 +33,8 @@ export class LeaveFormComponent implements OnInit {
               private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
+    this.leaveService.getAppliedLeave()
+      .subscribe(allLeave => this.allAppliedLeave = allLeave);
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -58,9 +61,15 @@ export class LeaveFormComponent implements OnInit {
   }
 
   onApply() {
-    this.submitted = true;
-    this.leaveService.applyLeave(this.id, this.leaveType.value, this.startDate.value, this.endDate.value, this.interim.value);
-    this.alertMessage = 'Leave has been applied';
+    const userLeave = this.allAppliedLeave.find(user => user.id == this.id);
+    const onLeave = userLeave.daysApplied;
+    if (onLeave != 0) {
+      this.alertMessage = "You cannot apply for more than one leave.";
+    } else {
+      this.submitted = true;
+      this.leaveService.applyLeave(this.id, this.leaveType.value, this.startDate.value, this.endDate.value, this.interim.value);
+      this.alertMessage = 'Leave has been applied';
+    }
   }
 
   onHandleMessage() {

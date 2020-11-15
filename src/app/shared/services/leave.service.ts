@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import { Observable } from "rxjs";
 import {Leave} from "../models/leave.model";
 import {HttpClient} from "@angular/common/http";
 import {AppliedModel} from "../models/applied.model";
-import {User} from "../models/register.model";
 
 @Injectable({ providedIn: 'root' })
 export class LeaveService{
@@ -44,12 +43,13 @@ export class LeaveService{
       this.daysApplied = (end.getTime() - start.getTime())/(1000*3600*24);
 
       const leaveApplied = {};
+      leaveApplied['id'] = id;
       leaveApplied['type'] = type;
       leaveApplied['startDate'] = startDate;
       leaveApplied['endDate'] = endDate;
       leaveApplied['daysApplied'] = this.daysApplied;
       leaveApplied['interim'] = interim;
-      return this.Http.post<AppliedModel[]>((this.appliedURL), leaveApplied)
+      return this.Http.post<AppliedModel[]>(this.leaveURL, leaveApplied)
         .subscribe(responseData => {
           console.log(responseData);
         });
@@ -60,14 +60,14 @@ export class LeaveService{
       return this.Http.patch<number>(`${this.leaveURL}/${id}`, updatedLeave)
         .subscribe(responseData => {
           console.log(responseData);
-        })//how to patch to leave Array
+        });
       return this.Http.patch<string>(`${this.appliedURL}/${id}`, {"adminMessage": "Your leave has been approved. Please inform to the HR office once you are back"})
         .subscribe(responseData => {
           console.log(responseData);
-        })
+        });
     }
-    onLeaveComplete(id: number) {
-      return this.Http.delete<AppliedModel[]>(`${this.appliedURL}/${id}`)
+    resetLeaveData(id: number) {
+      return this.Http.patch<AppliedModel[]>(`${this.appliedURL}/${id}`,this.resetAppliedLeave())
         .subscribe(responseData => {
           console.log(responseData);
         });
@@ -78,19 +78,22 @@ export class LeaveService{
           console.log(responseData);
         });
     }
-    //To delete message after user views it
-    deleteMessage(id: number) {
-      return this.Http.patch<string>(`${this.appliedURL}/${id}`, ({"adminMessage": ""}))
+
+    //To delete with account deletion
+    deleteLeave(id: number) {
+      return this.Http.delete<Leave>(`${this.leaveURL}/${id}`)
         .subscribe(responseData => {
           console.log(responseData);
         });
     }
 
-    //To delete with account deletion
-    deleteLeave(id: number) {
-      return this.Http.delete<number>(`${this.leaveURL}/${id}`)
-        .subscribe(responseData => {
-          console.log(responseData);
-        });
+    resetAppliedLeave() {
+      const appliedLeaveReset = {};
+      appliedLeaveReset["type"] = "";
+      appliedLeaveReset["startDate"] = "";
+      appliedLeaveReset["endDate"] = "";
+      appliedLeaveReset["daysApplied"] = 0;
+      appliedLeaveReset["adminMessage"] = "";
+      return appliedLeaveReset;
     }
 }
