@@ -2,10 +2,10 @@
   "Users": [
     {
       "id": 1,
-      "firstName": "Sawan",
-      "lastName": "Nepal",
-      "email": "sawee42@gmail.com",
-      "phone": "+97517491632",
+      "firstName": "Lord",
+      "lastName": "Admin",
+      "email": "iamGod@gmail.com",
+      "phone": "+97517777777",
       "password": "iamGod",
       "confirmPassword": "iamGod",
       "status": "At Work",
@@ -125,14 +125,6 @@
   ],
   "Applied": [
     {
-      "id": 1,
-      "type": "casual",
-      "startDate": "2020-11-13",
-      "endDate": "2020-11-20",
-      "daysApplied": 7,
-      "interim": "John Dophu"
-    },
-    {
       "id": 2,
       "type": "toil",
       "startDate": "2020-11-15",
@@ -145,7 +137,8 @@
       "type": "sick",
       "startDate": "2020-11-30",
       "endDate": "2020-12-12",
-      "daysApplied": 12
+      "daysApplied": 12,
+      "interim": "Alu Dorji"
     }
   ]
 }
