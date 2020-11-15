@@ -53,14 +53,20 @@ export class LeaveService{
     //Functions to update leave taken days for specific user
     onLeaveAccept(id: number, updatedLeave: object) {
       return this.Http.patch<number>(`${this.leaveURL}/${id}`, updatedLeave) //how to patch to leave Array
-      return this.Http.patch<string>(`${this.appliedURL}/${id}`, {"adminMessage": 'Your leave has been approved. Please inform to the HR office once you are back'})
+      return this.Http.patch<string>(`${this.appliedURL}/${id}`, {"adminMessage": "Your leave has been approved. Please inform to the HR office once you are back"})
     }
     onLeaveComplete(id: number) {
       return this.Http.delete<AppliedModel[]>(`${this.appliedURL}/${id}`);
     }
     onLeaveReject(id: number): Observable<string> {
-      return this.Http.patch<string>(`${this.appliedURL}/${id}`, ({"adminMessage": 'Your leave has been rejected. Please contact HR for details.'}));
+      return this.Http.patch<string>(`${this.appliedURL}/${id}`, ({"adminMessage": "Your leave has been rejected. Please contact HR for details."}));
     }
+    //To delete message after user views it
+    deleteMessage(id: number): Observable<string> {
+      return this.Http.patch<string>(`${this.appliedURL}/${id}`, ({"adminMessage": ""}));
+    }
+
+    //To delete with account deletion
     deleteLeave(id: number) {
       return this.Http.delete<number>(`${this.leaveURL}/${id}`);
     }

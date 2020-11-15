@@ -3,8 +3,13 @@
     <app-alert
       [message]="formMessage"
       *ngIf="formMessage"
-      (close)="onHandleMessage()"
-    ></app-alert>
+      (close)="onHandleMessage()">
+    </app-alert>
+      <app-alert
+        [message]="adminMessage"
+        *ngIf="adminMessage"
+        (close)="onHandleAdminMessage()">
+      </app-alert>
     <h2>User Details</h2>
     <hr>
     <ul class="list-group">
@@ -55,5 +60,12 @@
           (click)="onDelete()">Remove Account</a></li>
       </ul>
     </div>
+    |
+    <button
+      (click)="messageUpdate()"
+      class="btn btn-primary"
+      type="button">
+      Check Leave Status
+    </button>
   </div>
 </div>

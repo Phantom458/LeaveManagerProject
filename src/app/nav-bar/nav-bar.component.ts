@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(public authService: AuthService,
-    private routes: Router) { }
+              private routes: Router) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.checkRole().subscribe(
@@ -30,9 +30,5 @@ export class NavBarComponent implements OnInit {
 
   onLogout() {
     this.authService.logoutUser();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

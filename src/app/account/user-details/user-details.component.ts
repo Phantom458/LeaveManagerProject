@@ -17,9 +17,11 @@ import {AppliedModel} from "../../shared/models/applied.model";
 export class UserDetailsComponent implements OnInit {
   user: User;
   leave: Leave;
+  appliedLeave: AppliedModel;
   userId: number;
   userAuth: number;
   formMessage: string;
+  adminMessage: string;
 
   private subscription: Subscription;
 
@@ -42,11 +44,11 @@ export class UserDetailsComponent implements OnInit {
       }
     );
     this.accountService.getAccountById(this.userId)
-      .subscribe(accounts => this.user = accounts
-      );
+      .subscribe(accounts => this.user = accounts);
     this.leaveService.getLeaveById(this.userId)
-      .subscribe(leaveValues => this.leave = leaveValues
-      );
+      .subscribe(leaveValues => this.leave = leaveValues);
+    this.leaveService.getAppliedLeaveById(this.userId)
+      .subscribe(appliedLeave => this.appliedLeave = appliedLeave);
   }
 
   onEdit() {
@@ -55,9 +57,7 @@ export class UserDetailsComponent implements OnInit {
     } else {
       this.routes.navigate(['user', this.userId, 'edit']);
     }
-
   }
-
   onDelete() {
     if(this.userAuth != 1) {
       this.accountService.deleteAccount(this.userId);
@@ -70,6 +70,17 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  messageUpdate() {
+    const adminMessage = this.appliedLeave.adminMessage;
+    this.accountService.setMessage(adminMessage);
+    this.getMessage();
+  }
+  getMessage() {
+    this.accountService.checkMessage()
+      .subscribe(message => this.adminMessage = message);
+  }
+
+
   onHandleMessage() {
     this.formMessage = null;
     if (this.userAuth != 1){
@@ -77,5 +88,10 @@ export class UserDetailsComponent implements OnInit {
     } else {
       this.routes.navigate(['../../list'], {relativeTo: this.route})
     }
+  }
+  onHandleAdminMessage() {
+    this.adminMessage = null;
+    this.accountService.resetMessage()
+    this.leaveService.deleteMessage(this.userId);
   }
 }
