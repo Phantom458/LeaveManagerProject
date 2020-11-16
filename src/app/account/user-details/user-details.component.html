@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-xs-12">
+    <app-alert
+      [message]="formMessage"
+      *ngIf="formMessage"
+      (close)="onHandleMessage()">
+    </app-alert>
+      <app-alert
+        [message]="adminMessage"
+        *ngIf="adminMessage"
+        (close)="onHandleAdminMessage()">
+      </app-alert>
+    <h2>User Details</h2>
+    <hr>
+    <ul class="list-group">
+      <li
+        class="li list-group-item">
+        <h3> Name: {{ user?.firstName }} {{ user?.lastName }} </h3>
+        <p> ID: {{ user?.id }} </p>
+        <p> Email: {{ user?.email }} </p>
+        <p> Contact: {{ user?.phone }}  </p>
+        <p> Status: {{ user?.status }}  </p>
+      </li>
+    </ul>
+    <h2>Leave Details</h2>
+    <hr>
+    <table
+      class="list-group">
+      <tr>
+        <th>Type of Leave</th>
+        <th>Number of Days</th>
+        <th>Days Left</th>
+        <th>Days Taken</th>
+      </tr>
+      <tr *ngFor="let num of leave?.leave">
+        <td>{{num.type | titlecase}}</td>
+        <td>{{num.numberOfDays}}</td>
+        <td>{{num.leaveLeft}}</td>
+        <td>{{num.leaveTaken}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <small *ngIf="nullMessage">{{ nullMessage }}</small>
+    <div class="btn-group" appDropdown>
+      <button
+        type="button"
+        class="btn btn-primary button-toggle">
+        Manage
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a
+          style="cursor: pointer;"
+          (click)="onEdit()">Edit</a></li>
+        <li><a
+          style="cursor: pointer;"
+          (click)="onDelete()">Remove Account</a></li>
+      </ul>
+    </div>
+    |
+    <button
+      *ngIf="userAuth != 1"
+      (click)="messageUpdate()"
+      class="btn btn-primary"
+      type="button">
+      Check Leave Status
+    </button>
+  </div>
+</div>
