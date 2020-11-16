@@ -2,10 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
 
-## AdminEmail and Password
+## Admin email and password
 
-Email: iamGod@gmail.com
-Password: iamGod
+Email: iamGod@gmail.com | Password: iamGod
 
 ## Development server
 
